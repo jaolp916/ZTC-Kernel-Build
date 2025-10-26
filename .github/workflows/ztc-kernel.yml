@@ -317,16 +317,6 @@ jobs:
             echo "Building the kernel..."
             LTO=thin BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh CC=clang || exit 1
             
-      - name: 修补 Image 文件 安卓12和安卓13(仅限sukisu)
-        run: |
-            echo "Patching Image file..."
-            cd "$CONFIG/out/android12-5.10/dist"
-            strings Image | grep "Linux version"
-            curl -LSs "https://raw.githubusercontent.com/ShirkNeko/SukiSU_patch/refs/heads/main/kpm/patch_linux" -o patch
-            chmod 777 patch
-            ./patch
-            rm -rf Image
-            mv oImage Image
 
       - name: 创建Bootimgs文件夹并复制镜像
         run: |
@@ -460,3 +450,4 @@ jobs:
         with:
           name: susfs-${{ env.SUSFS_NAME }}
           path: ./susfs-module/*
+
