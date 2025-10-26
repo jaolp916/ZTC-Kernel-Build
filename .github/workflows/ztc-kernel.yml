@@ -4,7 +4,12 @@ permissions:
   actions: write   # Allows triggering actions
 
 on:
-  workflow_dispatch: # This allows this workflow to be called from another workflow
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '自定义版本名(如5.10.198后面的字符/留空则使用默认版本号)'
+        required: false
+        type: string   
 
 jobs:
   build-ztckernel:
@@ -535,5 +540,6 @@ jobs:
         run: |
           echo "GitHub release created with the following files:"
           ls ./downloaded-artifacts/**/*
+
 
 
